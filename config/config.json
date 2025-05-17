@@ -1,0 +1,6 @@
+{
+    "base_url": "https://example.com",
+    "headless": true,
+    "browser": "chromium",
+    "timeout": 10000
+}
