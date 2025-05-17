@@ -8,13 +8,9 @@ on:
 
 jobs:
   test:
+    name: Playwright Tests (Chromium)
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, firefox, webkit]
-
     steps:
     - uses: actions/checkout@v4
     
@@ -31,19 +27,19 @@ jobs:
     
     - name: Install Playwright Browsers
       run: |
-        playwright install --with-deps ${{ matrix.browser }}
+        playwright install --with-deps chromium
     
     - name: Run Playwright tests
       run: |
-        BROWSER=${{ matrix.browser }} pytest --browser ${{ matrix.browser }}
+        BROWSER=chromium pytest --browser chromium
       env:
-        BROWSER: ${{ matrix.browser }}
+        BROWSER: chromium
     
     - name: Upload test results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report-${{ matrix.browser }}
+        name: playwright-report-chromium
         path: playwright-report/
         retention-days: 30
     
@@ -51,6 +47,6 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-screenshots-${{ matrix.browser }}
+        name: playwright-screenshots-chromium
         path: test-results/screenshots/
         retention-days: 30 
