@@ -1,7 +1,6 @@
 import pytest
 from framework.test_base.base_test import BaseTest
 from pages.ab_testing_page import AbTestingPage
-from playwright.sync_api import expect
 
 
 class TestAbTestingPage(BaseTest):
@@ -9,6 +8,7 @@ class TestAbTestingPage(BaseTest):
     def setup_ab_testing_page(self):
         """Setup specific to AB Testing page tests."""
         self.page.goto(f"{self.base_url}/abtest")
+        self.wait_for_page_load()
         self.ab_testing_page = AbTestingPage(self.page)
 
     def test_verify_available_content(self):
@@ -18,7 +18,7 @@ class TestAbTestingPage(BaseTest):
 
         # Act
         page_header: str = self.ab_testing_page.get_page_header()
-        context_text = self.ab_testing_page.get_context_text()
+        context_text: str = self.ab_testing_page.get_context_text()
 
         # Assert
         assert page_header in expected_page_headers
