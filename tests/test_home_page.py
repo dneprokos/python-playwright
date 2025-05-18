@@ -9,6 +9,7 @@ class TestHomePage(BaseTest):
     def setup_home_page(self):
         """Setup specific to home page tests."""
         self.home_page = HomePage(self.page)
+        self.wait_for_page_load()
 
     def test_verify_available_content(self):
         """Test to verify all menu items are present and correct."""
